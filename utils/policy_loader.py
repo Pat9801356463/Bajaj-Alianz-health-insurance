@@ -3,4 +3,4 @@
 import pandas as pd
 
 def load_policy_data():
-    return pd.read_csv("data/fp.csv")
+    return pd.read_csv("Data/fp.csv")

@@ -8,9 +8,8 @@ def init_gemini():
     genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
     return genai.GenerativeModel("gemini-pro")
 
-def answer_query_from_policy(uin, question):
-    filepath = f"data/policies/{uin}.pdf"
-    context = extract_text_from_pdf(filepath)[:30000]  # limit tokens
+def answer_query_from_file(file_path, question):
+    context = extract_text_from_pdf(file_path)[:30000]  # token-safe
 
     model = init_gemini()
     prompt = f"""
@@ -25,3 +24,4 @@ User question: {question}
 
     response = model.generate_content(prompt)
     return response.text.strip()
+

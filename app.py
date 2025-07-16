@@ -17,12 +17,14 @@ df = load_policy_data()
 with st.form("filter_form"):
     st.subheader("🔍 Enter Your Details")
     age = st.text_input("Enter your age", placeholder="e.g. 35")
-    product_type = st.selectbox("Type of Product", sorted(df["Type of Product"].dropna().unique()))
+    product_type = st.selectbox("Type of Product", sorted(df["Type Of Product"].dropna().unique()))
     identity = st.selectbox("Identity", sorted(df["Identity"].dropna().unique()))
     disease_type = st.selectbox("Disease Type", sorted(df["Disease Type"].dropna().unique()))
     coverage = st.text_input("Enter coverage (e.g., 10L, 1Cr, 500000)", placeholder="10L")
 
     submitted = st.form_submit_button("Show Matching Policies")
+
+
 
 # Process form
 if submitted:

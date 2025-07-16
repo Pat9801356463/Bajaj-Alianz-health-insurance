@@ -1,3 +1,5 @@
+# utils/policy_filter.py
+
 import pandas as pd
 import re
 
@@ -8,20 +10,22 @@ def parse_age_range(age_range):
     return None, None
 
 def parse_coverage(val):
-    val = str(val).strip().lower()
-
-    # Convert terms to INR value
+    val = str(val).strip().lower().replace(" ", "")
     if 'cr' in val:
         return float(re.sub(r'[^\d.]', '', val)) * 1e7
-    elif 'lac' in val or 'lakh' in val:
+    elif 'lac' in val or 'lakh' in val or 'l' in val:
         return float(re.sub(r'[^\d.]', '', val)) * 1e5
-    elif val.isnumeric():
+    elif val.replace('.', '', 1).isdigit():
         return float(val)
     else:
-        return None  # for "Varies" or unknown
+        return None  # for "Varies" or unknown text
 
 def filter_policies(df, age_str, product_type, identity, disease_type, coverage_str):
-    age = float(age_str)
+    try:
+        age = float(age_str)
+    except ValueError:
+        raise ValueError("Invalid age input.")
+
     coverage = parse_coverage(coverage_str)
 
     results = []
@@ -47,16 +51,15 @@ def filter_policies(df, age_str, product_type, identity, disease_type, coverage_
 
         # --- COVERAGE match with ±10% tolerance
         row_coverage = parse_coverage(row["Coverage"])
-        if row_coverage and coverage:
+        if row_coverage is not None and coverage is not None:
             lower = coverage * 0.9
             upper = coverage * 1.1
             if not (lower <= row_coverage <= upper):
                 continue
-        elif coverage and not row_coverage:
-            continue  # skip rows where coverage is "varies" but user specified a value
+        elif coverage is not None and row_coverage is None:
+            continue  # skip "varies" when user input is numeric
 
         # all filters passed
         results.append(row)
 
     return pd.DataFrame(results)
-

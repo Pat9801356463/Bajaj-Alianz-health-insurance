@@ -1,54 +1,8 @@
 import pandas as pd
 import re
-import numpy as np
-from sklearn.linear_model import LinearRegression
 
 # ----------------------
-# PREMIUM MODEL SETUP
-# ----------------------
-premium_model = None
-
-def train_premium_model(csv_path="Data/premium_model.csv"):
-    global premium_model
-
-    df1 = pd.read_csv(csv_path).dropna()
-
-    def parse_cov(x):
-        x = str(x).strip().lower()
-        if 'cr' in x:
-            return float(x.replace("cr", "").strip()) * 1e7
-        elif 'lac' in x:
-            return float(x.replace("lac", "").strip()) * 1e5
-        return float(x)
-
-    df1["Coverage INR"] = df1["Coverage"].apply(parse_cov)
-    df1["Price"] = (df1["End Price"] + df1["End Price"])/2
-
-    X = df1[["Coverage INR"]]
-    y = df1["Price"]
-
-    premium_model = LinearRegression()
-    premium_model.fit(X, y)
-
-def predict_premium(coverage_input):
-    if premium_model is None:
-        train_premium_model()
-
-    val = str(coverage_input).strip().lower().replace(" ", "")
-    if 'cr' in val:
-        cov = float(val.replace("cr", "")) * 1e7
-    elif 'lac' in val:
-        cov = float(val.replace("lac", "")) * 1e5
-    elif 'l' in val:
-        cov = float(val.replace("l", "")) * 1e5
-    else:
-        cov = float(val)
-
-    prediction = premium_model.predict(np.array([[cov]]))[0]
-    return round(prediction, 2)
-
-# ----------------------
-# POLICY FILTER LOGIC
+# POLICY FILTER LOGIC ONLY
 # ----------------------
 
 def parse_age_range(age_range):
@@ -59,6 +13,8 @@ def parse_age_range(age_range):
 
 def parse_coverage(val):
     val = str(val).strip().lower().replace(" ", "")
+    if 'varies' in val:
+        return None
     if 'cr' in val:
         return float(re.sub(r'[^\d.]', '', val)) * 1e7
     elif 'lac' in val or 'lakh' in val or 'l' in val:
@@ -69,7 +25,7 @@ def parse_coverage(val):
         return None
 
 def filter_policies(df, age_str, product_type, identity, disease_type, coverage_str):
-    df.columns = df.columns.str.strip()  # Clean column names
+    df.columns = df.columns.str.strip()
 
     try:
         age = float(age_str)
@@ -77,6 +33,9 @@ def filter_policies(df, age_str, product_type, identity, disease_type, coverage_
         raise ValueError("Invalid age input.")
 
     coverage = parse_coverage(coverage_str)
+    if coverage is None:
+        return pd.DataFrame([])  # Invalid or unsupported coverage input
+
     results = []
 
     for _, row in df.iterrows():
@@ -98,21 +57,21 @@ def filter_policies(df, age_str, product_type, identity, disease_type, coverage_
         if row_identity != identity and row_identity != "All":
             continue
 
-        # Coverage match with tolerance
-        row_coverage = parse_coverage(row["Net Coverage Amount (Sum Insured)"])
-        if row_coverage is not None and coverage is not None:
-            lower = coverage * 0.9
-            upper = coverage * 1.1
-            if not (lower <= row_coverage <= upper):
-                continue
-        elif coverage is not None and row_coverage is None:
-            pass
-        else:
+        # Coverage match
+        raw_cov = str(row["Net Coverage Amount (Sum Insured)"]).lower()
+        if "varies" in raw_cov:
             continue
 
-        # Premium prediction
-        row_dict = row.to_dict()
-        row_dict["Predicted Premium"] = f"₹{predict_premium(coverage_str):,.2f}/year"
-        results.append(row_dict)
+        row_coverage = parse_coverage(raw_cov)
+        if row_coverage is None:
+            continue
+
+        lower = coverage * 0.9
+        upper = coverage * 1.1
+        if not (lower <= row_coverage <= upper):
+            continue
+
+        # Add matched row
+        results.append(row.to_dict())
 
     return pd.DataFrame(results)

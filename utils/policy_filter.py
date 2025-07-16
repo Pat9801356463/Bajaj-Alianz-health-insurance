@@ -11,7 +11,7 @@ premium_model = None
 def train_premium_model(csv_path="Data/premium_model.csv"):
     global premium_model
 
-    df = pd.read_csv(csv_path).dropna()
+    df1 = pd.read_csv(csv_path).dropna()
 
     def parse_cov(x):
         x = str(x).strip().lower()
@@ -21,11 +21,11 @@ def train_premium_model(csv_path="Data/premium_model.csv"):
             return float(x.replace("lac", "").strip()) * 1e5
         return float(x)
 
-    df["Coverage INR"] = df["Coverage"].apply(parse_cov)
-    df["Price"] = df["End Price"]
+    df1["Coverage INR"] = df1["Coverage"].apply(parse_cov)
+    df["Price"] = (df1["End Price"] + df1["End Price"])/2
 
-    X = df[["Coverage INR"]]
-    y = df["Price"]
+    X = df1[["Coverage INR"]]
+    y = df1["Price"]
 
     premium_model = LinearRegression()
     premium_model.fit(X, y)

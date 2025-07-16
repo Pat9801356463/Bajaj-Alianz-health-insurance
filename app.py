@@ -13,7 +13,7 @@ st.title("🏥 Bajaj Allianz Health Insurance Finder")
 # Load Data
 df = load_policy_data()
 df.columns = df.columns.str.strip()  # Clean column names
-
+st.write("🧾 CSV Columns:", df.columns.tolist())
 # Input Form
 with st.form("filter_form"):
     st.subheader("🔍 Enter Your Details")

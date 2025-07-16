@@ -12,6 +12,7 @@ st.title("🏥 Bajaj Allianz Health Insurance Finder")
 
 # Load Data
 df = load_policy_data()
+df.columns = df.columns.str.strip()  # Clean column names
 
 # Input Form
 with st.form("filter_form"):
@@ -34,13 +35,11 @@ if submitted:
         else:
             st.success(f"Found {len(result_df)} matching policy(ies).")
 
-            # Display results including predicted premium
             st.dataframe(result_df[[
                 "UIN", "Product Name", "Type Of Product", "Age", "Identity", 
                 "Disease Type", "Coverage", "Predicted Premium", "Document address"
             ]])
 
-            # Chatbot
             selected_uin = st.selectbox("📄 Select a Policy UIN to Chat With:", result_df["UIN"].unique())
             if st.button("Start Chatbot"):
                 run_chatbot_interface(selected_uin)

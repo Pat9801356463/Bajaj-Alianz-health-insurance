@@ -8,7 +8,7 @@ from sklearn.linear_model import LinearRegression
 # ----------------------
 premium_model = None
 
-def train_premium_model(csv_path="data/premium_model.csv"):
+def train_premium_model(csv_path="Data/premium_model.csv"):
     global premium_model
 
     df = pd.read_csv(csv_path).dropna()

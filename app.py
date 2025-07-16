@@ -24,6 +24,7 @@ with st.form("filter_form"):
 
     submitted = st.form_submit_button("Show Matching Policies")
 
+# Process form
 if submitted:
     try:
         result_df = filter_policies(df, age, product_type, identity, disease_type, coverage)
@@ -33,7 +34,7 @@ if submitted:
         else:
             st.success(f"Found {len(result_df)} matching policy(ies).")
 
-            # Display full table including predicted premium
+            # Show table with predicted premium
             st.dataframe(result_df[[
                 "UIN", "Product Name", "Type of product", "Age", "Identity", 
                 "Disease Type", "Coverage", "Predicted Premium", "Document address"
@@ -45,11 +46,4 @@ if submitted:
                 run_chatbot_interface(selected_uin)
 
     except Exception as e:
-        st.error(f"Error: {e}")
-# Show UIN selector after policy results
-selected_uin = st.selectbox("📄 Select a Policy UIN to Chat With:", result_df["UIN"])
-if st.button("Start Chatbot"):
-    run_chatbot_interface(selected_uin)
-
-    except Exception as e:
-        st.error(f"Error: {e}")
+        st.error(f"❌ Error: {e}")

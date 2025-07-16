@@ -37,10 +37,11 @@ if submitted:
             st.success(f"Found {len(result_df)} matching policy(ies).")
 
             # Show table with predicted premium
-            st.dataframe(result_df[[
-                "UIN", "Product Name", "Type of product", "Age", "Identity", 
-                "Disease Type", "Coverage", "Predicted Premium", "Document address"
-            ]])
+           st.dataframe(result_df[[
+    "UIN", "Product Name", "Type Of Product", "Age", "Identity", 
+    "Disease Type", "Coverage", "Predicted Premium", "Document address"
+]])
+
 
             # Chatbot UI
             selected_uin = st.selectbox("📄 Select a Policy UIN to Chat With:", result_df["UIN"].unique())

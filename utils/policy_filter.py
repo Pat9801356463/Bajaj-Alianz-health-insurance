@@ -69,7 +69,7 @@ def parse_coverage(val):
         return None
 
 def filter_policies(df, age_str, product_type, identity, disease_type, coverage_str):
-    df.columns = df.columns.str.strip()
+    df.columns = df.columns.str.strip()  # Clean column names
 
     try:
         age = float(age_str)
@@ -80,20 +80,25 @@ def filter_policies(df, age_str, product_type, identity, disease_type, coverage_
     results = []
 
     for _, row in df.iterrows():
+        # Age check
         min_age, max_age = parse_age_range(row["Age"])
         if min_age is not None and (age < min_age or age > max_age):
             continue
 
+        # Product type
         if str(row["Type Of Product"]).strip() != product_type.strip():
             continue
 
+        # Disease type
         if str(row["Disease Type"]).strip() != disease_type.strip():
             continue
 
+        # Identity
         row_identity = str(row["Identity"]).strip()
         if row_identity != identity and row_identity != "All":
             continue
 
+        # Coverage match with tolerance
         row_coverage = parse_coverage(row["Net Coverage Amount (Sum Insured)"])
         if row_coverage is not None and coverage is not None:
             lower = coverage * 0.9
@@ -105,6 +110,7 @@ def filter_policies(df, age_str, product_type, identity, disease_type, coverage_
         else:
             continue
 
+        # Premium prediction
         row_dict = row.to_dict()
         row_dict["Predicted Premium"] = f"₹{predict_premium(coverage_str):,.2f}/year"
         results.append(row_dict)

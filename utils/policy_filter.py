@@ -1,3 +1,5 @@
+# utils/policy_filter.py
+
 import pandas as pd
 import re
 import numpy as np
@@ -83,8 +85,8 @@ def filter_policies(df, age_str, product_type, identity, disease_type, coverage_
         if min_age is not None and (age < min_age or age > max_age):
             continue
 
-        # --- PRODUCT TYPE check
-      if str(row["Type Of Product"]).strip() != product_type.strip():
+        # --- PRODUCT TYPE check (Indentation fixed)
+        if str(row["Type Of Product"]).strip() != product_type.strip():
             continue
 
         # --- DISEASE TYPE strict match

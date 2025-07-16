@@ -1,5 +1,3 @@
-# utils/policy_filter.py
-
 import pandas as pd
 import re
 import numpy as np
@@ -71,7 +69,7 @@ def parse_coverage(val):
         return None
 
 def filter_policies(df, age_str, product_type, identity, disease_type, coverage_str):
-    df.columns = df.columns.str.strip()  # ensure all columns are clean
+    df.columns = df.columns.str.strip()
 
     try:
         age = float(age_str)
@@ -96,7 +94,7 @@ def filter_policies(df, age_str, product_type, identity, disease_type, coverage_
         if row_identity != identity and row_identity != "All":
             continue
 
-        row_coverage = parse_coverage(row["Coverage"])
+        row_coverage = parse_coverage(row["Net Coverage Amount (Sum Insured)"])
         if row_coverage is not None and coverage is not None:
             lower = coverage * 0.9
             upper = coverage * 1.1

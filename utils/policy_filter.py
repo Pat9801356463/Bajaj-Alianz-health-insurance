@@ -5,6 +5,9 @@ import re
 import numpy as np
 from sklearn.linear_model import LinearRegression
 
+# ----------------------
+# PREMIUM MODEL SETUP
+# ----------------------
 premium_model = None
 
 def train_premium_model(csv_path="Data/premium_model.csv"):
@@ -46,6 +49,10 @@ def predict_premium(coverage_input):
     prediction = premium_model.predict(np.array([[cov]]))[0]
     return round(prediction, 2)
 
+# ----------------------
+# POLICY FILTER LOGIC
+# ----------------------
+
 def parse_age_range(age_range):
     match = re.match(r"(\d+\.?\d*)\s*-\s*(\d+\.?\d*)", str(age_range))
     if match:
@@ -64,8 +71,8 @@ def parse_coverage(val):
         return None
 
 def filter_policies(df, age_str, product_type, identity, disease_type, coverage_str):
-        df.columns = df.columns.str.strip()  # Normalize all column headers
     df.columns = df.columns.str.strip()  # ensure all columns are clean
+
     try:
         age = float(age_str)
     except ValueError:

@@ -1,0 +1,26 @@
+Name of the Insurer,UIN,Product Name,Documents,Type Of Product,Estimated Average Premium (INR),Net Coverage Amount (Sum Insured),Age,Identity,Disease Type
+Bajaj Allianz General Insurance Co. Ltd.,BAJHLIP23020V012223,Global Health Care,"""Data/1.pdf""",Individual,"20,000",3.75 Cr,0.25-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLGP22165V012122,Flexi Health Protect Plan,"""Data/2.pdf""",Group,10000,1 Cr,0-100,All,Null
+Bajaj Allianz General Insurance Co. Ltd.,BAJHLGP22020V022122,M Care (Group),"""Data/3.pdf""",Group,364,5 Lac.,18-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd.,BAJHLIP22019V022122,M Care,"""Data/4.pdf""",Individual,400,5 Lac.,18-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd.,BAJHLIP22024V032122,Family Care,"""Data/5.pdf""",Family,"5,000",40 Lac,18-65,All,Null
+Bajaj Allianz General Insurance Co Ltd,BAJHLGP22130V022122,Group Hospital Cash Policy,"""Data/6.pdf""",Group,678,10 Lac,18-40 ,Female,Null
+Bajaj Allianz General Insurance Co Ltd,BAJTIDP22129V022122,Bharat Bhraman Insurance Policy,"""Data/7.pdf""",Individual,Varies,Varies,0-100,All,Null
+Bajaj Allianz General Insurance Co Ltd,BAJTIOP22122V022122,Pravasi Bharatiya Bima Yojana Policy,"""Data/8.pdf""",Individual,Varies,Varies,18-65,NRI,Null
+Bajaj Allianz General Insurance Co Ltd,BAJHLIP21005V022021,Health Infinity,"""Data/9.pdf""",Family,25000,Unlimited,18-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLGP21181V022021,Health Guard (Group),"""Data/10.pdf""",Group(Child),10000,35 Lacs ,0-35 ,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21115V022021,Hospital Cash Daily Allowance,"""Data/11.pdf""",Individual,20,25000,18-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21117V022021,Critical Illness,"""Data/12.pdf""",Individual,20000,40 Lac,18-65,All,Critical
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21142V022021,Women Specific Critical Illness Plan,"""Data/13.pdf""",Individual,18000,40 Lac,18-66,All,Critical
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21143V022021,Health Care Supreme,"""Data/14.pdf""",Individual,24000,50 Lac,18-100,Female,Critical
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21146V022021,Extra Care,"""Data/15.pdf""",Family,"2,500",10 Lac,18-70,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21182V022021,Family Health Care,"""Data/16.pdf""",Family,"5,000",25 Lac,18-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21183V022021,Silver Health,"""Data/17.pdf""",Senior Citizen,800,10 Lac,46-80,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21184V022021,Tax Gain,"""Data/18.pdf""",Individual,450,8 Lac,18-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21218V022021,Personal Accident Insurance Policy,"""Data/19.pdf""",Accident,450,8 Lac,18-65,All,Accident
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21227V042021,Health Guard,"""Data/20.pdf""",Family,5000,9 Lac,18-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLGP21584V012021,Bharat Bhraman Insurance Policy for Scheduled Airline Operators,"""Data/21.pdf""",Group,Varies,Varies,0-100,Airline Staff,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLGP21602V012021,"Arogya Sanjeevani Policy, Bajaj Allianz GI Co. Ltd(Group)","""Data/22.pdf""",Family,100,50000,18-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJPAIP21609V012021,"Saral Suraksha Bima, Bajaj Allianz GI Co. Ltd","""Data/23.pdf""",Individual,400,5 Lac.,18-65,All,Null
+Bajaj Allianz General Insurance Co. Ltd,BAJHLIP21127V032021,Health ensure,"""Data/24.pdf""",Family,Varies,Varies ,18-65,All,Null
+Bajaj Allianz General Insurance Co Ltd,BAJHLIP20147V021920,Extra Care Plus,"""Data/25.pdf""",Individual,12000,25 Lac,0.25-80,All,Critical

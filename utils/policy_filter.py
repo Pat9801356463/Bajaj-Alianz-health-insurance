@@ -64,6 +64,7 @@ def parse_coverage(val):
         return None
 
 def filter_policies(df, age_str, product_type, identity, disease_type, coverage_str):
+        df.columns = df.columns.str.strip()  # Normalize all column headers
     df.columns = df.columns.str.strip()  # ensure all columns are clean
     try:
         age = float(age_str)

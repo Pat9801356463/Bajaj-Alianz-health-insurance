@@ -22,7 +22,7 @@ def train_premium_model(csv_path="Data/premium_model.csv"):
         return float(x)
 
     df1["Coverage INR"] = df1["Coverage"].apply(parse_cov)
-    df["Price"] = (df1["End Price"] + df1["End Price"])/2
+    df1["Price"] = (df1["End Price"] + df1["End Price"])/2
 
     X = df1[["Coverage INR"]]
     y = df1["Price"]

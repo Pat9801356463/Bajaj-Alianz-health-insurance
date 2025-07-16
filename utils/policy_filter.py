@@ -84,7 +84,7 @@ def filter_policies(df, age_str, product_type, identity, disease_type, coverage_
             continue
 
         # --- PRODUCT TYPE check
-        if str(row["Type of product"]).strip() != product_type.strip():
+      if str(row["Type Of Product"]).strip() != product_type.strip():
             continue
 
         # --- DISEASE TYPE strict match

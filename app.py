@@ -1,5 +1,3 @@
-# app.py
-
 import streamlit as st
 import pandas as pd
 import os
@@ -7,11 +5,10 @@ import re
 import PyPDF2
 import google.generativeai as genai
 from utils.policy_filter import filter_policies
-from utils.rag_engine import answer_query_from_file
 from utils.policy_loader import load_policy_data
 
 # -------------------------
-# Gemini Chatbot Logic (merged from chatbot.py)
+# Gemini Chatbot Logic
 # -------------------------
 
 def extract_text_from_pdf(file_path):
@@ -74,13 +71,13 @@ def run_chatbot_interface(selected_uin):
             st.markdown(f"**{speaker}:** {msg}")
 
 # -------------------------
-# Streamlit App
+# Streamlit App UI
 # -------------------------
 
 st.set_page_config(page_title="🩺 Bajaj Allianz Policy Recommender", layout="centered")
 st.title("🏥 Bajaj Allianz Health Insurance Finder")
 
-# Load Data
+# Load data
 df = load_policy_data()
 df.columns = df.columns.str.strip()
 
@@ -92,10 +89,9 @@ with st.form("filter_form"):
     identity = st.selectbox("Identity", sorted(df["Identity"].dropna().unique()))
     disease_type = st.selectbox("Disease Type", sorted(df["Disease Type"].dropna().unique()))
     coverage = st.text_input("Enter coverage (e.g., 10L, 1Cr, 500000)", placeholder="10L")
-
     submitted = st.form_submit_button("Show Matching Policies")
 
-# Process form
+# Handle form submit
 if submitted:
     try:
         result_df = filter_policies(df, age, product_type, identity, disease_type, coverage)
@@ -109,10 +105,8 @@ if submitted:
                 "Disease Type", "Net Coverage Amount (Sum Insured)", "Documents"
             ]])
 
-            # UIN selection
             selected_uin = st.selectbox("📄 Select a Policy UIN to Chat With:", result_df["UIN"].unique())
 
-            # Button logic using session state
             if "chatbot_active" not in st.session_state:
                 st.session_state.chatbot_active = False
 
@@ -121,6 +115,9 @@ if submitted:
                 st.session_state.selected_uin = selected_uin
                 st.session_state.chat_history = []
 
-# If chatbot is active, display it
+    except Exception as e:
+        st.error(f"❌ Error: {e}")
+
+# ✅ THIS IS NOW OUTSIDE THE TRY BLOCK
 if st.session_state.get("chatbot_active", False):
     run_chatbot_interface(st.session_state.get("selected_uin"))

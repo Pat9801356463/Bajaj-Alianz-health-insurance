@@ -46,8 +46,10 @@ if submitted:
 
     except Exception as e:
         st.error(f"Error: {e}")
-"📄 Select a Policy UIN to Chat With:", result_df["UIN"])
-            if st.button("Start Chatbot"):
-                run_chatbot_interface(selected_uin)
+# Show UIN selector after policy results
+selected_uin = st.selectbox("📄 Select a Policy UIN to Chat With:", result_df["UIN"])
+if st.button("Start Chatbot"):
+    run_chatbot_interface(selected_uin)
+
     except Exception as e:
         st.error(f"Error: {e}")

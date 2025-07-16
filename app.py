@@ -10,10 +10,10 @@ st.set_page_config(page_title="🩺 Bajaj Allianz Policy Recommender", layout="c
 
 st.title("🏥 Bajaj Allianz Health Insurance Finder")
 
-# Load Data
+# Load and clean Data
 df = load_policy_data()
-df.columns = df.columns.str.strip()  # Clean column names
-st.write("🧾 CSV Columns:", df.columns.tolist())
+df.columns = df.columns.str.strip()
+
 # Input Form
 with st.form("filter_form"):
     st.subheader("🔍 Enter Your Details")
@@ -25,7 +25,6 @@ with st.form("filter_form"):
 
     submitted = st.form_submit_button("Show Matching Policies")
 
-# Process form after submission
 if submitted:
     try:
         result_df = filter_policies(df, age, product_type, identity, disease_type, coverage)
@@ -37,7 +36,8 @@ if submitted:
 
             st.dataframe(result_df[[
                 "UIN", "Product Name", "Type Of Product", "Age", "Identity", 
-                "Disease Type", "Coverage", "Predicted Premium", "Document address"
+                "Disease Type", "Net Coverage Amount (Sum Insured)", 
+                "Predicted Premium", "Documents"
             ]])
 
             selected_uin = st.selectbox("📄 Select a Policy UIN to Chat With:", result_df["UIN"].unique())
